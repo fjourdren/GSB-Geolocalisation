@@ -1,19 +1,14 @@
 package com.gsb.ppe.geolocalisation;
 
-import android.Manifest;
 import android.app.Notification;
 import android.app.PendingIntent;
 import android.app.Service;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.os.IBinder;
-import android.support.v4.content.ContextCompat;
-import android.telephony.TelephonyManager;
 import android.util.Log;
-import android.widget.Toast;
 
 public class GeoLocalisation_service extends Service {
     private static final String TAG = "GeoLocalisation_service";
@@ -26,30 +21,17 @@ public class GeoLocalisation_service extends Service {
 
     private class LocationListener implements android.location.LocationListener {
 
-        Location mLastLocation;
 
         public LocationListener(String provider) {
             Log.e(TAG, "LocationListener " + provider);
-            mLastLocation = new Location(provider);
         }
 
         @Override
         public void onLocationChanged(Location location) {
             Log.e(TAG, "onLocationChanged: " + location.toString());
-            mLastLocation.set(location);
 
-            if(ContextCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.READ_PHONE_STATE) == PackageManager.PERMISSION_GRANTED) {
-                TelephonyManager tMgr = (TelephonyManager) getApplicationContext().getSystemService(getApplicationContext().TELEPHONY_SERVICE);
-                String imei = tMgr.getDeviceId();
-                Toast.makeText(getApplicationContext(), imei, Toast.LENGTH_LONG).show();
-            } else {
-                Log.e(TAG, "No permission to read phone imei");
-            }
-
-
-            //show message
-            Toast.makeText(getApplicationContext(), location.toString(), Toast.LENGTH_LONG).show();
-            //location.getLongitude()+" "+location.getLatitude());
+            //send position to API
+            Utils.sendLocation(getApplicationContext(), location);
         }
 
         @Override
@@ -92,7 +74,8 @@ public class GeoLocalisation_service extends Service {
         Log.e(TAG, "onCreate");
         initializeLocationManager();
 
-        //pour garder le service open
+
+        //pour garder le service ouvert même quand l'activité est fermé
         Intent showTaskIntent = new Intent(this, GeoLocalisation.class);
         showTaskIntent.setAction(Intent.ACTION_MAIN);
         showTaskIntent.addCategory(Intent.CATEGORY_LAUNCHER);
@@ -104,7 +87,7 @@ public class GeoLocalisation_service extends Service {
         Notification notification = new Notification.Builder(getApplicationContext())
                 .setContentTitle(getString(R.string.app_name))
                 .setContentText("Service de géolocalisation des visiteurs médicaux")
-                .setSmallIcon(R.drawable.ic_launcher_background)
+                .setSmallIcon(R.mipmap.ic_launcher)
                 .setWhen(System.currentTimeMillis())
                 .setContentIntent(pendingIntent)
                 .build();
