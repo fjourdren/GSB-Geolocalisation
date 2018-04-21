@@ -4,7 +4,7 @@ public class Config {
     private static final String API_URL = "http://127.0.0.1/";
     private static final String API_ADD_LOCATION = "localisations";
 
-    private static final int LOCATION_INTERVAL = 1000*60*5;
+    private static final int LOCATION_INTERVAL = 20000;
     private static final float LOCATION_DISTANCE = 0.5f;
 
 
