@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">GeoLocalisation</string>
+    <string name="app_desc">Suivi des visiteurs médicaux</string>
 </resources>
