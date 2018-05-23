@@ -16,3 +16,7 @@ Route::get('/', function () {
 });
 
 Route::resource('/location','LocationController');
+
+Route::auth();
+
+Route::get('/home', 'HomeController@index');
