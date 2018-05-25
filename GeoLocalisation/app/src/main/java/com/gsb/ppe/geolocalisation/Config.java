@@ -1,8 +1,8 @@
 package com.gsb.ppe.geolocalisation;
 
 public class Config {
-    private static final String API_URL = "http://127.0.0.1/";
-    private static final String API_ADD_LOCATION = "locations";
+    private static final String API_URL = "http://maps.google.com/maps/api/js?key=AIzaSyCgtBhSrbvwTRY1ZQ1Z-pB1d8mj1htTDi8";
+    private static final String API_ADD_LOCATION = "localisations";
 
     private static final int LOCATION_INTERVAL = 20000;
     private static final float LOCATION_DISTANCE = 0.5f;

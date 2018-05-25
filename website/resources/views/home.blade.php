@@ -14,6 +14,7 @@
       position: uluru,
       map: map
     });
+
   }
   </script>
   <title>Map</title>
@@ -39,6 +40,7 @@
         <a onclick="if(!confirm('Deconnexion ?')) return false;" href="{{ url('/logout') }}"><img src="<?php echo asset('img/logout.png')?>" class="deconnexion" height="50px" width="50px"></img></a>
       </div>
     </div>
+
     <hr class="hraffiche"/>
   </div>
   <div class="row">
