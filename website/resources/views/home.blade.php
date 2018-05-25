@@ -40,9 +40,6 @@
         <a onclick="if(!confirm('Deconnexion ?')) return false;" href="{{ url('/logout') }}"><img src="<?php echo asset('img/logout.png')?>" class="deconnexion" height="50px" width="50px"></img></a>
       </div>
     </div>
-    <!-- <ul class="nav navbar-nav navbar-right">
-      <li><a href="{{ url('/register') }}">Ajouter un administrateur</a></li>
-    </ul> -->
     <hr class="hraffiche"/>
   </div>
   <div class="row">
