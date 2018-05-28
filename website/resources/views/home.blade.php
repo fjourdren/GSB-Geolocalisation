@@ -59,26 +59,16 @@
             <th>Heure</th>
           </tr>
         </thead>
+        @foreach ($locations as $location)
         <tbody>
           <tr>
-            <td>huawei</td>
-            <td id="latitude"> 48.4000000</td>
-            <td id="longitude">-4.4833300</td>
-            <td>11h45</td>
-          </tr>
-          <tr>
-            <td>apple</td>
-            <td> 48.853</td>
-            <td>2.35</td>
-            <td>13h</td>
-          </tr>
-          <tr>
-            <td>sony</td>
-            <td>48.26484088119172</td>
-            <td>0.6159650192494155</td>
-            <td>08h45</td>
+            <td>{{ $location->imei }}</td>
+            <td id="latitude"> {{ $location->latitude }}</td>
+            <td id="longitude">{{ $location->longitude }}</td>
+            <td>{{ $location->created_at }}</td>
           </tr>
         </tbody>
+        @endforeach
       </table>
     </div>
   </div>

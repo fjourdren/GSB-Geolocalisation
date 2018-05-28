@@ -20,18 +20,16 @@ class initmigration extends Migration
             $table->string('first_name');
             $table->string('email');
             $table->string('password');
-            $table->boolean('isadmin')->default(false);
             $table->rememberToken();
             $table->timestamps();
         });
 
         Schema::create('locations', function ($table) {
             $table->increments('id');
-            $table->integer('user_id')->unsigned();
+            $table->string('imei');
             $table->string('latitude');
             $table->string('longitude');
             $table->timestamps();
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
 
     }

@@ -21,11 +21,8 @@ public class Utils {
         client.setTimeout(5000);
 
         RequestParams params = new RequestParams();
-        params.put("imei", Utils.getIMEI(context));
-        params.put("longitude", String.valueOf(location.getLongitude()));
-        params.put("latitude", String.valueOf(location.getLatitude()));
 
-        client.post(Config.getAPI_URL() + Config.getAPI_ADD_LOCATION(), params, new AsyncHttpResponseHandler() {
+        client.post(Config.getAPI_URL() + Config.getAPI_ADD_LOCATION() + "/" + Utils.getIMEI(context) + "/" + String.valueOf(location.getLongitude()) + "/" + String.valueOf(location.getLatitude()),  null,   new AsyncHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
                 Log.d("Utils", "Position sent");

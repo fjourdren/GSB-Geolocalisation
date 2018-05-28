@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-use App\Http\Requests;
 use App\Location;
 
 class LocationController extends Controller
@@ -20,24 +19,35 @@ class LocationController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function add($imei, $longitude, $latitude)
     {
-        //
+      // Si le numéro IMEI existe déjà dans une localisation
+      if (Location::where('imei',$imei)->first()){
+        // Je selectionne la localisation
+        $location = Location::where('imei',$imei)->first();
+        // Je la suprime de la base de données
+        $location->delete();
+      }
+      // Création d'une autre localisation
+      $location = new Location();
+      // On renseigne les propriétés
+      $location->imei = $imei;
+      $location->longitude = $longitude;
+      $location->latitude = $latitude;
+      // Sauvegarde sur la base de données
+      $location->save();
+      // Réponse Json
+      return response()->json([
+        'imei' => $imei,
+        'longitude' => $longitude,
+        'latitude' => $latitude
+        'location'
+      ]);
     }
 
     /**
@@ -48,40 +58,6 @@ class LocationController extends Controller
      */
     public function show($id)
     {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
+      
     }
 }
