@@ -2,20 +2,49 @@
 <head>
   <meta name="viewport" content="width=device-width, user-scalable=no">
   <script>
+  // Définition de la variable map
+  var map;
+  // fonction qui déssine la map
   function initMap(data) {
-    var uluru = {lat: 48.3795995, lng: -4.523425399999951};
-    var map = new google.maps.Map(document.getElementById('map'), {
-      zoom: 4,
-      height:300,
-      center: uluru
+    // Création d'un tableau
+    var tableauLocation = [];
+    // Selection des éléments du tableau
+    var elements = document.querySelectorAll("#tablePosition tbody tr");
+    // Pour chaque eléments
+    for(var i = 0; i < elements.length; i++) {
+      // On met la localisation dans le tableau tableauLocation
+      tableauLocation.push(elements[i]);
+    }
+    // On définit le tableau uluru
+    var uluru = [];
+    // Pour chaque eléments dans le tableau tableauLocation
+    for (element of tableauLocation) {
+      // Je récupère la latitude
+      var latitude = parseFloat(element.querySelector("#latitude").innerHTML)
+      // Je récupère la longitude
+      var longitude = parseFloat(element.querySelector("#longitude").innerHTML)
+      // J'insère la position dans le tableau nommé uluru
+      uluru.push(new google.maps.LatLng(longitude, latitude))
+    }
 
+
+    // Je déssine la map
+    map = new google.maps.Map(document.getElementById('map'), {
+
+      zoom: 7,
+      height:300,
+      center: uluru[0]
     });
-    var marker = new google.maps.Marker({
-      position: uluru,
-      map: map
-    });
+
+    for(var i = 0; i < uluru.length; i++) {
+      var marker = new google.maps.Marker({
+        position: uluru[i],
+        map: map
+      });
+    }
 
   }
+
   </script>
   <title>Map</title>
   <link rel="stylesheet" href="<?php echo asset('css/design.css')?>" type="text/css">
@@ -50,13 +79,13 @@
       </div>
     </div>
     <div class="col-md-4">
-      <table class="center-block" id="table">
+      <table class="center-block" id="tablePosition">
         <thead>
           <tr>
             <th>Mobile</th>
-            <th>Latitute</th>
-            <th>Longitute</th>
-            <th>Heure</th>
+            <th>Latitude</th>
+            <th>Longitude</th>
+            <th>Date</th>
           </tr>
         </thead>
         @foreach ($locations as $location)
@@ -74,11 +103,10 @@
   </div>
 </div>
 <script type="text/javascript">
-$("#table tbody tr").click(function(){
-  var latitude = $("#latitude").text();
-  var longitude = $("#longitude").text();
-  var position = {lat: latitude, lng: longitude};
-  alert(latitude + "  " +  longitude);
+$("#tablePosition tbody tr").click(function(e) {
+  var latitude = parseFloat(e.target.parentNode.querySelector("#latitude").innerHTML)
+  var longitude = parseFloat(e.target.parentNode.querySelector("#longitude").innerHTML)
+  map.setCenter(new google.maps.LatLng(longitude, latitude))
 });
 </script>
 </body>

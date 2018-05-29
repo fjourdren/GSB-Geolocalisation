@@ -14,7 +14,7 @@ class HomeController extends Controller
      * @return void
      */
     public function __construct()
-    {
+    {   // Obliger d'être authentifié pour accéder à la page
         $this->middleware('auth');
     }
 
@@ -25,9 +25,9 @@ class HomeController extends Controller
      */
     public function index()
     {
+      // Selection de toutes les locations
       $locations = Location::all();
-
-      // Réponse Json
+      // Retour de la vue avec les locations
       return view('home', ['locations' => $locations]);
     }
 }

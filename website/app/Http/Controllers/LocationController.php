@@ -46,7 +46,6 @@ class LocationController extends Controller
         'imei' => $imei,
         'longitude' => $longitude,
         'latitude' => $latitude
-        'location'
       ]);
     }
 
@@ -58,6 +57,6 @@ class LocationController extends Controller
      */
     public function show($id)
     {
-      
+        
     }
 }
